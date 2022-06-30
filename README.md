@@ -5,7 +5,7 @@ This package will detect one or more ArUco Markers and broadcast each tfs(Transf
 
 ## Dependencies
 - Ubuntu 20.04 LTS (Focal Fossa)
-- Robotic Operating System([ROS](http://wiki.ros.org/ROS/Installation) noetic
+- Robotic Operating System([ROS](http://wiki.ros.org/ROS/Installation)) noetic
 
 To activate it, you will need
 - pyrealsense2
