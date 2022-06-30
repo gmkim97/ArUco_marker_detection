@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+
+  <node name="marker_detection" pkg="marker_detection" type="marker_detection.py" output="screen"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find marker_detection)/config/marker_detection_config.rviz"/>
+
+
+</launch>
+
+ 
