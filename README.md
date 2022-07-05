@@ -23,6 +23,21 @@ $ cd ~/catkin_ws/
 $ catkin_make
 ```
 
+## Solving possible problems
+1. No module named pyrealsense2
+```
+$ pip install pyrealsense2
+```
+2. AttributeError: module 'numpy.random' has no attribute 'BitGenerator'
+```
+$ pip install --upgrade numpy
+```
+After that, try
+```
+$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+```
+
 ## How to start?
 ```
 $ roslaunch marker_detection marker_detection.launch

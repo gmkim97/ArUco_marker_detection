@@ -70,7 +70,6 @@ if __name__ == '__main__':
 
                     print(dist)
 
-
                     # These codes are for testing appropriate variable values
                     # print(ids)
                     # print(pos_mat)
@@ -79,7 +78,7 @@ if __name__ == '__main__':
                     # print(RotationToEuler(rot_mat))
                     # print(len(ids))
                     
-                    trans = Transform(translation=Vector3(pos_mat[2], -pos_mat[0], -pos_mat[1]), ## pos_mat[2], -pos_mat[0], -pos_mat[1]
+                    trans = Transform(translation=Vector3(pos_mat[2], -pos_mat[0], -pos_mat[1]),
                             rotation=Quaternion(*tf.transformations.quaternion_from_euler(euler[0], euler[1], euler[2])) # quaternion_from_euler(euler angles: yaw, pitch, roll)
                             )
 
@@ -89,6 +88,7 @@ if __name__ == '__main__':
 
                     trans_stamp = TransformStamped(header, 'aruco_marker' + str(ids), trans)
                     br.sendTransformMessage(trans_stamp)
+
 
         cv2.imshow("res", frame_markers)
         cv2.waitKey(1)
