@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="align_depth"   value="true"/>
+  </include>
+
+  <include file="$(find object_tracker)/launch/object_tracking_with_py3.launch"/>
+
+  <include file="$(find marker_detection)/launch/marker_detection_rs.launch"/>
+
+</launch>
