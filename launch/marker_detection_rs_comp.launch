@@ -6,7 +6,7 @@
     <arg name="align_depth"   value="true"/>
   </include>
 
-  <node name="marker_detection" pkg="marker_detection" type="marker_detection_rs.py" output="screen"/>
+  <node name="marker_detection" pkg="marker_detection" type="marker_detection_rs_comp.py" output="screen"/>
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find marker_detection)/config/marker_detection_rs_config.rviz"/>
 
 

@@ -10,7 +10,7 @@ import numpy as np
 import math
 from std_msgs.msg import Header
 from geometry_msgs.msg import Transform, Vector3, Quaternion, TransformStamped
-from sensor_msgs.msg import Image, CameraInfo
+from sensor_msgs.msg import Image, CameraInfo, CompressedImage
 
 # Convert Rotation to Euler
 def RotationToEuler(R):
@@ -51,9 +51,9 @@ class marker_detection:
         self.topic3 = topic3
         self.bridge = CvBridge()
 
-        self.sub = rospy.Subscriber(topic1, Image, self.rgbMat_callback)
+        self.sub = rospy.Subscriber(topic1, CompressedImage, self.rgbMat_callback)
         self.sub2 = rospy.Subscriber(topic2, CameraInfo, self.rgbimgInfo_callback)
-        self.sub3 = rospy.Subscriber(topic3, Image, self.marker_detection)
+        self.sub3 = rospy.Subscriber(topic3, CompressedImage, self.marker_detection)
         
         self.intrinsics = None
     
@@ -62,7 +62,7 @@ class marker_detection:
 
         global rgb_Mat
         try:
-            rgb_Mat = self.bridge.imgmsg_to_cv2(rgb_img, rgb_img.encoding)
+            rgb_Mat = self.bridge.compressed_imgmsg_to_cv2(rgb_img)
 
         except CvBridgeError as e:
             print(e)
@@ -94,7 +94,7 @@ class marker_detection:
 
         global depth_Mat
         try:
-            depth_Mat = self.bridge.imgmsg_to_cv2(depth_img, depth_img.encoding)
+            depth_Mat = self.bridge.compressed_imgmsg_to_cv2(depth_img)
 
         except CvBridgeError as e:
             print(e)
@@ -117,7 +117,7 @@ class marker_detection:
         gray_img = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
         parameters = aruco.DetectorParameters_create()
         corners, ids, _ = aruco.detectMarkers(gray_img, aruco_dict, parameters=parameters)
-        frame_markers = aruco.drawDetectedMarkers(bgr, corners, ids)
+        frame_markers = aruco.drawDetectedMarkers(rgb, corners, ids)
 
         if np.shape(corners)[0] > 0:
                 for i in range(np.shape(corners)[0]):
@@ -172,9 +172,9 @@ if __name__ == '__main__':
     
     rospy.init_node("marker_detection")
 
-    topic1 = "/camera/color/image_raw"
+    topic1 = "/camera/color/image_raw/compressed"
     topic2 = "/camera/aligned_depth_to_color/camera_info"
-    topic3 = "/camera/aligned_depth_to_color/image_raw"
+    topic3 = "/camera/aligned_depth_to_color/image_raw/compressed"
 
     detection = marker_detection(topic1, topic2, topic3)
     rospy.spin()
